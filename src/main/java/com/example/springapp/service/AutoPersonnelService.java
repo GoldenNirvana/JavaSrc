@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AutoPersonnelService {
+public class AutoPersonnelService
+{
+  @Autowired
+  private AutoPersonnelRepo autoPersonnelRepo;
 
-    @Autowired
-    private AutoPersonnelRepo autoPersonnelRepo;
-
-    public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity auto) {
-        return autoPersonnelRepo.save(auto);
-    }
+  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity auto)
+  {
+    return autoPersonnelRepo.save(auto);
+  }
 }
