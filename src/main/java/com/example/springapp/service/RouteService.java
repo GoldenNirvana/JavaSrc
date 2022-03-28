@@ -36,7 +36,7 @@ public class RouteService
     return Route.toModel(route.get());
   }
 
-  public Integer deleteRoute(Integer id)
+  public Integer deleteRoute(Integer id) throws RouteNotFound
   {
     Optional<RouteEntity> route = routeRepo.findById(id);
 
@@ -46,7 +46,7 @@ public class RouteService
       return id;
     }
 
-    throw new RuntimeException("Маршрута с таким id не существует");
+    throw new RouteNotFound("Маршрута с таким id не существует");
   }
 
   public Boolean deleteAllRoutes()

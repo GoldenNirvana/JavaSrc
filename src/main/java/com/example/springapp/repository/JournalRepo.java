@@ -14,12 +14,5 @@ import java.util.Optional;
 public interface JournalRepo extends CrudRepository<JournalEntity, Integer>
 {
   List<JournalEntity> findJournalEntityByAutoId(AutoEntity autoId);
-
-//  Optional<JournalEntity> findByAutoIdAndRouteIdAndTimeInAndTimeOut(Timestamp timeIn, Timestamp timeOut, AutoEntity auto, RouteEntity route);
-
-//   Optional<JournalEntity> findJournalEntityByTimeOutAndTimeInAndRouteIdAndAutoId(Timestamp timeIn, Timestamp timeOut, RouteEntity route, AutoEntity auto);
-
-//  Optional<JournalEntity> findJournalEntityByTimeInAndTimeOut(Timestamp timeIn, Timestamp timeOut);
-
   List<JournalEntity> findAllByRouteId(RouteEntity route);
 }

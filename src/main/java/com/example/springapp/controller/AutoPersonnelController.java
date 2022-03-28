@@ -13,7 +13,6 @@ public class AutoPersonnelController
   @Autowired
   private AutoPersonnelService autoPersonnelService;
 
-  // Post
 
   @PostMapping("/addNew")
   public ResponseEntity addNewAutoPersonnel(@RequestBody AutoPersonnelEntity auto)
@@ -27,7 +26,6 @@ public class AutoPersonnelController
     }
   }
 
-  // Put
 
   @PutMapping("/setNewName")
   public ResponseEntity updateName(Integer id, String newName)
@@ -44,7 +42,6 @@ public class AutoPersonnelController
 
 
 
-  // Delete
 
   @DeleteMapping("/deleteById")
   public ResponseEntity deleteById(@RequestParam Integer id)

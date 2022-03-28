@@ -1,6 +1,8 @@
 package com.example.springapp.service;
 
 import com.example.springapp.entity.AutoPersonnelEntity;
+import com.example.springapp.exception.DriverAlreadyExist;
+import com.example.springapp.exception.DriverWasntFound;
 import com.example.springapp.repository.AutoPersonnelRepo;
 import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,12 @@ public class AutoPersonnelService
   @Autowired
   private AutoRepo autoRepo;
 
-  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity personnel) throws RuntimeException
+  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity personnel) throws DriverAlreadyExist
   {
     Optional<AutoPersonnelEntity> person = autoPersonnelRepo.findByFirstNameAndLastNameAndPatherName(personnel.getFirstName(), personnel.getLastName(), personnel.getPatherName());
     if (person.isPresent())
     {
-      throw new RuntimeException("Водитель уже существует!");
+      throw new DriverAlreadyExist("Водитель уже существует!");
     }
     return autoPersonnelRepo.save(personnel);
   }
@@ -38,13 +40,13 @@ public class AutoPersonnelService
     return false;
   }
 
-  public AutoPersonnelEntity newName(Integer id, String newName)
+  public AutoPersonnelEntity newName(Integer id, String newName) throws DriverWasntFound, DriverAlreadyExist
   {
     Optional<AutoPersonnelEntity> personnel = autoPersonnelRepo.findById(id);
 
-    if (!personnel.isPresent())
+    if (personnel.isEmpty())
     {
-      throw new RuntimeException("Такого водителя нет в базе");
+      throw new DriverWasntFound("Такого водителя нет в базе");
     }
 
 
@@ -52,7 +54,7 @@ public class AutoPersonnelService
 
     if (personnelEntity.isPresent())
     {
-      throw new RuntimeException("Водитель с такими ФИО уже записан");
+      throw new DriverAlreadyExist("Водитель с такими ФИО уже записан");
 
 
     }

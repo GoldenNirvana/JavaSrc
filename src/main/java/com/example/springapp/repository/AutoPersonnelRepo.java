@@ -4,7 +4,6 @@ import com.example.springapp.entity.AutoPersonnelEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
-import java.util.Spliterator;
 
 public interface AutoPersonnelRepo extends CrudRepository<AutoPersonnelEntity, Integer>
 {

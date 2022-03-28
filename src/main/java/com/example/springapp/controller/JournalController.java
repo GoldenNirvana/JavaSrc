@@ -5,6 +5,7 @@ import com.example.springapp.entity.AutoPersonnelEntity;
 import com.example.springapp.entity.JournalEntity;
 import com.example.springapp.entity.RouteEntity;
 import com.example.springapp.exception.RouteAlreadyExist;
+import com.example.springapp.exception.RouteNotFound;
 import com.example.springapp.service.AutoPersonnelService;
 import com.example.springapp.service.AutoService;
 import com.example.springapp.service.JournalService;
@@ -54,7 +55,7 @@ public class JournalController
   }
 
   @PostMapping("/addNewByBody")
-  public ResponseEntity addNewAutoByBody(@RequestBody JournalEntity journal) throws ParseException, RouteAlreadyExist
+  public ResponseEntity addNewAutoByBody(@RequestBody JournalEntity journal) throws ParseException, RouteAlreadyExist, RouteNotFound
   {
     RouteEntity route = null;
     AutoPersonnelEntity autoPersonnel = null;

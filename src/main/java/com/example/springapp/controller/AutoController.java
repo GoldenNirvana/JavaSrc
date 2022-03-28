@@ -2,7 +2,6 @@ package com.example.springapp.controller;
 
 import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
-import com.example.springapp.repository.AutoRepo;
 import com.example.springapp.service.AutoPersonnelService;
 import com.example.springapp.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ public class AutoController
   private AutoPersonnelService autoPersonnelService;
 
 
-  // POST
 
   @PostMapping("/addNewByBody")
   public ResponseEntity addNewAutoByBody(@RequestBody AutoEntity auto)
@@ -54,7 +52,6 @@ public class AutoController
     }
   }
 
-  // Get
 
   @GetMapping("/getAllAutos")
   public ResponseEntity getAllAutos()
@@ -62,7 +59,6 @@ public class AutoController
     return ResponseEntity.ok(autoService.getAllAutos());
   }
 
-  // Put
 
   @PutMapping("/setNewColor")
   public ResponseEntity updateColor(@RequestParam Integer id, @RequestParam String newColor)
@@ -90,7 +86,6 @@ public class AutoController
     }
   }
 
-  // Delete
 
   @DeleteMapping("/deleteById")
   public ResponseEntity deleteById(@RequestParam Integer id)
