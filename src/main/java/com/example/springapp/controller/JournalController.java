@@ -39,12 +39,18 @@ public class JournalController
   @PostMapping("/addNewJournalByParams")
   public ResponseEntity addNewAutoByParams(@RequestParam String time_in, @RequestParam String time_out, @RequestParam Integer route_id, @RequestParam Integer auto_id) throws ParseException
   {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    Date parsedDate_1 = dateFormat.parse(time_in);
-    Date parsedDate_2 = dateFormat.parse(time_out);
-    Timestamp timestamp_1 = new java.sql.Timestamp(parsedDate_1.getTime());
-    Timestamp timestamp_2 = new java.sql.Timestamp(parsedDate_2.getTime());
-    return ResponseEntity.ok(journalService.addNewJournal(timestamp_1, timestamp_2, route_id, auto_id));
+    try
+    {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      Date parsedDate_1 = dateFormat.parse(time_in);
+      Date parsedDate_2 = dateFormat.parse(time_out);
+      Timestamp timestamp_1 = new java.sql.Timestamp(parsedDate_1.getTime());
+      Timestamp timestamp_2 = new java.sql.Timestamp(parsedDate_2.getTime());
+      return ResponseEntity.ok(journalService.addNewJournal(timestamp_1, timestamp_2, route_id, auto_id));
+    } catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 
   @PostMapping("/addNewJournalByBody")

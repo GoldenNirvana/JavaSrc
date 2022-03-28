@@ -31,6 +31,30 @@ public class JournalService
     Optional<AutoEntity> auto = autoRepo.findById(auto_id);
     Optional<RouteEntity> route = routeRepo.findById(route_id);
 
+    if (time_out.before(time_in))
+    {
+      throw new RuntimeException("Машина не могла приехать раньше чем уехала");
+    }
+
+    Optional<AutoEntity> currentAuto = autoRepo.findById(auto_id);
+
+    if (currentAuto.isEmpty())
+    {
+      throw new RuntimeException("Машины с таким id не существует");
+    }
+
+    List<JournalEntity> journalList = journalRepo.findJournalEntityByAutoId(currentAuto.get());
+
+    for (JournalEntity record : journalList)
+    {
+      if ((record.getTimeIn().before(time_in) && record.getTimeOut().after(time_in))
+        || (record.getTimeIn().before(time_out) && record.getTimeIn().after(time_in))
+        || (record.getTimeIn().before(time_in) && record.getTimeOut().after(time_out)))
+      {
+        throw new RuntimeException("Машина занята");
+      }
+    }
+
     if (auto.isPresent() && route.isPresent())
     {
       JournalEntity journal = new JournalEntity(time_in, time_out, auto.get(), route.get());
