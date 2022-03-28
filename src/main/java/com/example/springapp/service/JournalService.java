@@ -28,6 +28,13 @@ public class JournalService
 
   public JournalEntity addNewJournal(Timestamp time_in, Timestamp time_out, Integer route_id, Integer auto_id)
   {
+    /*Optional<JournalEntity> journal = journalRepo.findJournalEntityByTimeInAndTimeOutAndRouteIdAndAutoId(time_in, time_out, routeRepo.findById(route_id).get(), autoRepo.findById(auto_id).get());
+
+    if (journal.isPresent())
+    {
+      throw new RuntimeException("Такая запись уже существует");
+    }*/
+
     Optional<AutoEntity> auto = autoRepo.findById(auto_id);
     Optional<RouteEntity> route = routeRepo.findById(route_id);
 
@@ -47,9 +54,12 @@ public class JournalService
 
     for (JournalEntity record : journalList)
     {
-      if ((record.getTimeIn().before(time_in) && record.getTimeOut().after(time_in))
-        || (record.getTimeIn().before(time_out) && record.getTimeIn().after(time_in))
-        || (record.getTimeIn().before(time_in) && record.getTimeOut().after(time_out)))
+      if (((record.getTimeIn().before(time_in) || (record.getTimeIn().equals(time_in)))
+        && (record.getTimeOut().after(time_in) || record.getTimeOut().equals(time_in)))
+        || ((record.getTimeIn().before(time_out) || record.getTimeIn().equals(time_out))
+        && (record.getTimeIn().after(time_in) || record.getTimeIn().equals(time_in)))
+        || ((record.getTimeIn().before(time_in) || record.getTimeIn().equals(time_in))
+        && (record.getTimeOut().after(time_out) || record.getTimeOut().equals(time_out))))
       {
         throw new RuntimeException("Машина занята");
       }
@@ -57,9 +67,9 @@ public class JournalService
 
     if (auto.isPresent() && route.isPresent())
     {
-      JournalEntity journal = new JournalEntity(time_in, time_out, auto.get(), route.get());
+      JournalEntity newJournal = new JournalEntity(time_in, time_out, auto.get(), route.get());
       System.out.println("Журнал сохранён");
-      return journalRepo.save(journal);
+      return journalRepo.save(newJournal);
     }
     throw new RuntimeException();
   }
@@ -78,5 +88,16 @@ public class JournalService
       return true;
     }
     return false;
+  }
+
+  public List<JournalEntity> getByRoute(Integer routeId)
+  {
+    Optional<RouteEntity> route = routeRepo.findById(routeId);
+    if (!route.isPresent())
+    {
+      throw new RuntimeException("Маршрута с таким id не существует");
+    }
+    List<JournalEntity> list = journalRepo.findAllByRouteId(route.get());
+    return list;
   }
 }

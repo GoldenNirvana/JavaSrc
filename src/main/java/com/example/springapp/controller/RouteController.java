@@ -16,7 +16,7 @@ public class RouteController
   @Autowired
   private RouteService routeService;
 
-  @PostMapping
+  @PostMapping("/addNew")
   public ResponseEntity addNewRoute(@RequestBody RouteEntity route)
   {
     try
@@ -59,7 +59,7 @@ public class RouteController
     return ResponseEntity.ok(routeService.deleteByName(name));
   }
 
-  @DeleteMapping("/deleteAllRoutes")
+  @DeleteMapping("/deleteAll")
   public ResponseEntity deleteRoute()
   {
     try

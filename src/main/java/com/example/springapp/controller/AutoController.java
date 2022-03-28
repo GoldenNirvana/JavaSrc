@@ -62,7 +62,7 @@ public class AutoController
     return ResponseEntity.ok(autoService.getAllAutos());
   }
 
-  //
+  // Put
 
   @PutMapping("/setNewColor")
   public ResponseEntity updateColor(@RequestParam Integer id, @RequestParam String newColor)

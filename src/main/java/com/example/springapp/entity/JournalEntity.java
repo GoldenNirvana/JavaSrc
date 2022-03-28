@@ -30,12 +30,12 @@ public class JournalEntity
   {
   }
 
-  public JournalEntity(Timestamp time_in, Timestamp time_out, AutoEntity auto_id, RouteEntity route_id)
+  public JournalEntity(Timestamp timeIn, Timestamp timeOut, AutoEntity autoId, RouteEntity routeId)
   {
-    this.autoId = auto_id;
-    this.routeId = route_id;
-    this.timeOut = time_out;
-    this.timeIn = time_in;
+    this.autoId = autoId;
+    this.routeId = routeId;
+    this.timeOut = timeOut;
+    this.timeIn = timeIn;
   }
 
   public Integer getId()

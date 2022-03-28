@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/autoPersonnels")
+@RequestMapping("/personnels")
 public class AutoPersonnelController
 {
   @Autowired
@@ -15,7 +15,7 @@ public class AutoPersonnelController
 
   // Post
 
-  @PostMapping("/addNewPersonnel")
+  @PostMapping("/addNew")
   public ResponseEntity addNewAutoPersonnel(@RequestBody AutoPersonnelEntity auto)
   {
     try
@@ -45,12 +45,6 @@ public class AutoPersonnelController
 
 
   // Delete
-
-  @DeleteMapping("/deleteAll")
-  public ResponseEntity deleteAll()
-  {
-    return ResponseEntity.ok(autoPersonnelService.deleteAll());
-  }
 
   @DeleteMapping("/deleteById")
   public ResponseEntity deleteById(@RequestParam Integer id)

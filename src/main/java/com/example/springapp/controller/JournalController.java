@@ -36,7 +36,7 @@ public class JournalController
 
   // Post
 
-  @PostMapping("/addNewJournalByParams")
+  @PostMapping("/addNewByParams")
   public ResponseEntity addNewAutoByParams(@RequestParam String time_in, @RequestParam String time_out, @RequestParam Integer route_id, @RequestParam Integer auto_id) throws ParseException
   {
     try
@@ -53,7 +53,7 @@ public class JournalController
     }
   }
 
-  @PostMapping("/addNewJournalByBody")
+  @PostMapping("/addNewByBody")
   public ResponseEntity addNewAutoByBody(@RequestBody JournalEntity journal) throws ParseException, RouteAlreadyExist
   {
     RouteEntity route = null;
@@ -83,15 +83,40 @@ public class JournalController
     }
   }
 
-  @GetMapping("/get_all_journals")
+  @GetMapping("/getAll")
   public ResponseEntity getAllJournals()
   {
-    return ResponseEntity.ok(journalService.getAllJournals());
+    try
+    {
+      return ResponseEntity.ok(journalService.getAllJournals());
+    } catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 
-  @DeleteMapping
+  @GetMapping("/getById")
+  public ResponseEntity getByRoute(@RequestParam Integer routeId)
+  {
+    try
+    {
+      return ResponseEntity.ok(journalService.getByRoute(routeId));
+    }
+    catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
+  @DeleteMapping("/deleteById")
   public ResponseEntity deleteById(@RequestParam Integer id)
   {
-    return ResponseEntity.ok(journalService.deleteById(id));
+    try
+    {
+      return ResponseEntity.ok(journalService.deleteById(id));
+    } catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }

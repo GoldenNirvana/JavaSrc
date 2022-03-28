@@ -27,12 +27,6 @@ public class AutoPersonnelService
     return autoPersonnelRepo.save(personnel);
   }
 
-  public Boolean deleteAll()
-  {
-    autoPersonnelRepo.deleteAll();
-    return true;
-  }
-
   public Boolean deleteById(Integer id)
   {
     Optional<AutoPersonnelEntity> autoPersonnel = autoPersonnelRepo.findById(id);

@@ -38,8 +38,15 @@ public class RouteService
 
   public Integer deleteRoute(Integer id)
   {
-    routeRepo.deleteById(id);
-    return id;
+    Optional<RouteEntity> route = routeRepo.findById(id);
+
+    if (route.isPresent())
+    {
+      routeRepo.deleteById(id);
+      return id;
+    }
+
+    throw new RuntimeException("Маршрута с таким id не существует");
   }
 
   public Boolean deleteAllRoutes()
