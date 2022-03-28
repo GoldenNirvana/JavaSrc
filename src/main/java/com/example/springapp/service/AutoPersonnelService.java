@@ -28,4 +28,10 @@ public class AutoPersonnelService
     autoPersonnelRepo.deleteAll();
     return true;
   }
+
+  public Boolean deleteById(Integer id)
+  {
+    autoPersonnelRepo.deleteById(id);
+    return true;
+  }
 }

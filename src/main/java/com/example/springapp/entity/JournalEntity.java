@@ -1,7 +1,5 @@
 package com.example.springapp.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -15,18 +13,18 @@ public class JournalEntity
   private Integer id;
 
   @Column(name = "time_out")
-  private Timestamp time_out;
+  private Timestamp timeOut;
 
   @Column(name = "time_in")
-  private Timestamp time_in;
+  private Timestamp timeIn;
 
   @ManyToOne(optional = false, cascade = CascadeType.MERGE)
   @JoinColumn(name = "route_id")
-  private RouteEntity route_id;
+  private RouteEntity routeId;
 
   @ManyToOne(optional = false, cascade = CascadeType.MERGE)
   @JoinColumn(name = "auto_id")
-  private AutoEntity auto_id;
+  private AutoEntity autoId;
 
   public JournalEntity()
   {
@@ -34,10 +32,10 @@ public class JournalEntity
 
   public JournalEntity(Timestamp time_in, Timestamp time_out, AutoEntity auto_id, RouteEntity route_id)
   {
-    this.auto_id = auto_id;
-    this.route_id = route_id;
-    this.time_out = time_out;
-    this.time_in = time_in;
+    this.autoId = auto_id;
+    this.routeId = route_id;
+    this.timeOut = time_out;
+    this.timeIn = time_in;
   }
 
   public Integer getId()
@@ -50,43 +48,43 @@ public class JournalEntity
     this.id = id;
   }
 
-  public Timestamp getTime_out()
+  public Timestamp getTimeOut()
   {
-    return time_out;
+    return timeOut;
   }
 
-  public void setTime_out(Timestamp time_out)
+  public void setTimeOut(Timestamp time_out)
   {
-    this.time_out = time_out;
+    this.timeOut = time_out;
   }
 
-  public Timestamp getTime_in()
+  public Timestamp getTimeIn()
   {
-    return time_in;
+    return timeIn;
   }
 
-  public void setTime_in(Timestamp time_in)
+  public void setTimeIn(Timestamp time_in)
   {
-    this.time_in = time_in;
+    this.timeIn = time_in;
   }
 
-  public RouteEntity getRoute_id()
+  public RouteEntity getRouteId()
   {
-    return route_id;
+    return routeId;
   }
 
-  public void setRoute_id(RouteEntity route_id)
+  public void setRouteId(RouteEntity route_id)
   {
-    this.route_id = route_id;
+    this.routeId = route_id;
   }
 
-  public AutoEntity getAuto_id()
+  public AutoEntity getAutoId()
   {
-    return auto_id;
+    return autoId;
   }
 
-  public void setAuto_id(AutoEntity auto_id)
+  public void setAutoId(AutoEntity auto_id)
   {
-    this.auto_id = auto_id;
+    this.autoId = auto_id;
   }
 }

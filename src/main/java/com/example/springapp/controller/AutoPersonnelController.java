@@ -13,6 +13,8 @@ public class AutoPersonnelController
   @Autowired
   private AutoPersonnelService autoPersonnelService;
 
+  // Post
+
   @PostMapping("/addNewPersonnel")
   public ResponseEntity addNewAutoPersonnel(@RequestBody AutoPersonnelEntity auto)
   {
@@ -25,9 +27,18 @@ public class AutoPersonnelController
     }
   }
 
+  // Delete
+
   @DeleteMapping("/deleteAll")
   public ResponseEntity deleteAll()
   {
     return ResponseEntity.ok(autoPersonnelService.deleteAll());
   }
+
+  @DeleteMapping("/deleteById")
+  public ResponseEntity deleteById(Integer id)
+  {
+    return ResponseEntity.ok(autoPersonnelService.deleteById(id));
+  }
+
 }

@@ -14,26 +14,26 @@ public class AutoEntity
   @Column(name = "num", nullable = false, length = 50)
   private String num;
 
-  @Column(name = "Color", nullable = false, length = 50)
+  @Column(name = "color", nullable = false, length = 50)
   private String color;
 
-  @Column(name = "Mark", nullable = false, length = 50)
+  @Column(name = "mark", nullable = false, length = 50)
   private String mark;
 
   @ManyToOne(optional = false, cascade = CascadeType.MERGE)
   @JoinColumn(name = "personnel_id")
-  private AutoPersonnelEntity personnel_id;
+  private AutoPersonnelEntity personnelId;
 
   public AutoEntity()
   {
   }
 
-  public AutoEntity(String num, String color, String mark, AutoPersonnelEntity personnel_id)
+  public AutoEntity(String num, String color, String mark, AutoPersonnelEntity personnelId)
   {
     this.num = num;
     this.color = color;
     this.mark = mark;
-    this.personnel_id = personnel_id;
+    this.personnelId = personnelId;
   }
 
   public Integer getId()
@@ -76,13 +76,13 @@ public class AutoEntity
     this.mark = mark;
   }
 
-  public AutoPersonnelEntity getPersonnel_id()
+  public AutoPersonnelEntity getPersonnelId()
   {
-    return personnel_id;
+    return personnelId;
   }
 
-  public void setPersonnel_id(AutoPersonnelEntity personnel_id)
+  public void setPersonnelId(AutoPersonnelEntity personnel_id)
   {
-    this.personnel_id = personnel_id;
+    this.personnelId = personnel_id;
   }
 }
