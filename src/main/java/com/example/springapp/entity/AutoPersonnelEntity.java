@@ -12,23 +12,23 @@ public class AutoPersonnelEntity
   private Integer id;
 
   @Column(name = "first_name", nullable = false, length = 50)
-  private String first_name;
+  private String firstName;
 
   @Column(name = "last_name", nullable = false, length = 50)
-  private String last_name;
+  private String lastName;
 
   @Column(name = "pather_name", nullable = false, length = 50)
-  private String pather_name;
+  private String patherName;
 
   public AutoPersonnelEntity()
   {
   }
 
-  public AutoPersonnelEntity(String first_name, String last_name, String pather_name)
+  public AutoPersonnelEntity(String firstName, String lastName, String patherName)
   {
-    this.first_name = first_name;
-    this.last_name = last_name;
-    this.pather_name = pather_name;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.patherName = patherName;
   }
 
   public Integer getId()
@@ -41,33 +41,33 @@ public class AutoPersonnelEntity
     this.id = id;
   }
 
-  public String getFirst_name()
+  public String getFirstName()
   {
-    return first_name;
+    return firstName;
   }
 
-  public void setFirst_name(String first_name)
+  public void setFirstName(String first_name)
   {
-    this.first_name = first_name;
+    this.firstName = first_name;
   }
 
-  public String getLast_name()
+  public String getLastName()
   {
-    return last_name;
+    return lastName;
   }
 
-  public void setLast_name(String last_name)
+  public void setLastName(String last_name)
   {
-    this.last_name = last_name;
+    this.lastName = last_name;
   }
 
-  public String getPather_name()
+  public String getPatherName()
   {
-    return pather_name;
+    return patherName;
   }
 
-  public void setPather_name(String pather_name)
+  public void setPatherName(String pather_name)
   {
-    this.pather_name = pather_name;
+    this.patherName = pather_name;
   }
 }

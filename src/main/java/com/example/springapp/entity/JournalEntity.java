@@ -20,11 +20,11 @@ public class JournalEntity
   @Column(name = "time_in")
   private Timestamp time_in;
 
-  @ManyToOne(optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(optional = false, cascade = CascadeType.MERGE)
   @JoinColumn(name = "route_id")
   private RouteEntity route_id;
 
-  @ManyToOne(optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(optional = false, cascade = CascadeType.MERGE)
   @JoinColumn(name = "auto_id")
   private AutoEntity auto_id;
 

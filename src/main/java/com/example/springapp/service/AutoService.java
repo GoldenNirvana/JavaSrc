@@ -6,7 +6,6 @@ import com.example.springapp.repository.AutoPersonnelRepo;
 import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -30,5 +29,16 @@ public class AutoService
       return autoRepo.save(auto);
     }
     throw new RuntimeException();
+  }
+
+  public Boolean deleteById(Integer id)
+  {
+    Optional<AutoEntity> auto = autoRepo.findById(id);
+    if (auto.isPresent())
+    {
+      autoRepo.deleteById(id);
+      return true;
+    }
+    return false;
   }
 }

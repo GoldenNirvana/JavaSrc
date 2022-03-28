@@ -1,11 +1,11 @@
 package com.example.springapp.service;
 
-import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
 import com.example.springapp.repository.AutoPersonnelRepo;
-import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AutoPersonnelService
@@ -13,8 +13,19 @@ public class AutoPersonnelService
   @Autowired
   private AutoPersonnelRepo autoPersonnelRepo;
 
-  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity auto)
+  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity personnel) throws RuntimeException
   {
-    return autoPersonnelRepo.save(auto);
+    Optional<AutoPersonnelEntity> person = autoPersonnelRepo.findByFirstNameAndLastNameAndPatherName(personnel.getFirstName(), personnel.getLastName(), personnel.getPatherName());
+    if (person.isPresent())
+    {
+      throw new RuntimeException("Водитель уже существует!");
+    }
+    return autoPersonnelRepo.save(personnel);
+  }
+
+  public Boolean deleteAll()
+  {
+    autoPersonnelRepo.deleteAll();
+    return true;
   }
 }

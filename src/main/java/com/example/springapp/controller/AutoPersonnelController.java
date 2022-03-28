@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/autoPersonnels")
 public class AutoPersonnelController
 {
-
   @Autowired
   private AutoPersonnelService autoPersonnelService;
 
-  @PostMapping
+  @PostMapping("/addNewPersonnel")
   public ResponseEntity addNewAutoPersonnel(@RequestBody AutoPersonnelEntity auto)
   {
     try
@@ -22,7 +21,13 @@ public class AutoPersonnelController
       return ResponseEntity.ok(autoPersonnelService.addNewAutoPersonnel(auto));
     } catch (Exception e)
     {
-      return ResponseEntity.badRequest().body("Auto_personnel error");
+      return ResponseEntity.badRequest().body(e.getMessage());
     }
+  }
+
+  @DeleteMapping("/deleteAll")
+  public ResponseEntity deleteAll()
+  {
+    return ResponseEntity.ok(autoPersonnelService.deleteAll());
   }
 }

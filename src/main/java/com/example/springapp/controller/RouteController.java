@@ -32,7 +32,7 @@ public class RouteController
     }
   }
 
-  @GetMapping("get_route_by_id")
+  @GetMapping("/getRouteById")
   public ResponseEntity getOneRoute(@RequestParam Integer id)
   {
     try
@@ -47,18 +47,24 @@ public class RouteController
     }
   }
 
-  @GetMapping("get_all_route")
+  @GetMapping("/getAllRoutes")
   public ResponseEntity getAllRoutes()
   {
     return ResponseEntity.ok(routeService.getAllRoutes());
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity deleteRoute(@PathVariable Integer id)
+  @DeleteMapping("/deleteByName")
+  public ResponseEntity deleteRouteByName(@RequestParam String name)
+  {
+    return ResponseEntity.ok(routeService.deleteByName(name));
+  }
+
+  @DeleteMapping("/deleteAllRoutes")
+  public ResponseEntity deleteRoute()
   {
     try
     {
-      return ResponseEntity.ok(routeService.deleteRoute(id));
+      return ResponseEntity.ok(routeService.deleteAllRoutes());
     } catch (Exception e)
     {
       return ResponseEntity.badRequest().body("Error");

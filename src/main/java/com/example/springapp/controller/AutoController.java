@@ -45,4 +45,16 @@ public class AutoController
     }
   }
 
+  @DeleteMapping("/deleteById")
+  public ResponseEntity deleteById (@RequestParam Integer id)
+  {
+    try
+    {
+      return ResponseEntity.ok(autoService.deleteById(id));
+    } catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body("Auto delete error");
+    }
+  }
+
 }

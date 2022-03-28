@@ -41,8 +41,21 @@ public class RouteService
     return id;
   }
 
+  public Boolean deleteAllRoutes()
+  {
+    routeRepo.deleteAll();
+    return true;
+  }
+
   public List<RouteEntity> getAllRoutes()
   {
     return (List<RouteEntity>) routeRepo.findAll();
+  }
+
+  public Boolean deleteByName(String name)
+  {
+    RouteEntity route = routeRepo.findByName(name);
+    routeRepo.deleteById(route.getId());
+    return true;
   }
 }

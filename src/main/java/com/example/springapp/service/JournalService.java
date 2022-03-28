@@ -8,9 +8,7 @@ import com.example.springapp.repository.JournalRepo;
 import com.example.springapp.repository.RouteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -45,5 +43,16 @@ public class JournalService
   public List<JournalEntity> getAllJournals()
   {
     return (List<JournalEntity>) journalRepo.findAll();
+  }
+
+  public Boolean deleteById(Integer id)
+  {
+    Optional<JournalEntity> journal = journalRepo.findById(id);
+    if (journal.isPresent())
+    {
+      journalRepo.deleteById(id);
+      return true;
+    }
+    return false;
   }
 }

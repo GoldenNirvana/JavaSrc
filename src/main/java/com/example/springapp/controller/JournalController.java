@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 @RequestMapping("/journals")
 public class JournalController
 {
-
   @Autowired
   private JournalService journalService;
 
@@ -29,9 +28,15 @@ public class JournalController
     return ResponseEntity.ok(journalService.addNewJournal(timestamp_1, timestamp_2, route_id, auto_id));
   }
 
-  @GetMapping("get_all_journals")
+  @GetMapping("/get_all_journals")
   public ResponseEntity getAllJournals()
   {
     return ResponseEntity.ok(journalService.getAllJournals());
+  }
+
+  @DeleteMapping
+  public ResponseEntity deleteById(@RequestParam Integer id)
+  {
+    return ResponseEntity.ok(journalService.deleteById(id));
   }
 }
