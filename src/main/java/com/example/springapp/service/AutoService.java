@@ -2,8 +2,6 @@ package com.example.springapp.service;
 
 import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
-import com.example.springapp.entity.RouteEntity;
-import com.example.springapp.model.Auto;
 import com.example.springapp.repository.AutoPersonnelRepo;
 import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +61,33 @@ public class AutoService
   public List<AutoEntity> getAllAutos()
   {
     return (List<AutoEntity>) autoRepo.findAll();
+  }
+
+  public AutoEntity newColor(Integer id, String newColor)
+  {
+    Optional<AutoEntity> auto = autoRepo.findById(id);
+    if (!auto.isPresent())
+    {
+      throw new RuntimeException("Машина не найдена");
+    }
+    auto.get().setColor(newColor);
+    return autoRepo.save(auto.get());
+  }
+
+  public AutoEntity newNum(Integer id, String newNum)
+  {
+    Optional<AutoEntity> auto = autoRepo.findById(id);
+    if (!auto.isPresent())
+    {
+      throw new RuntimeException("Машина с таким id не найдена");
+    }
+
+    Optional<AutoEntity> auto_1 = autoRepo.findByNum(newNum);
+    if (auto_1.isPresent())
+    {
+      throw new RuntimeException("Такой номер уже есть");
+    }
+    auto.get().setNum(newNum);
+    return autoRepo.save(auto.get());
   }
 }

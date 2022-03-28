@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RouteService
@@ -27,12 +28,12 @@ public class RouteService
 
   public Route getOne(Integer id) throws RouteNotFound
   {
-    RouteEntity route = routeRepo.findById(id).get();
-    if (route == null)
+    Optional <RouteEntity> route = routeRepo.findById(id);
+    if (route.isPresent())
     {
       throw new RouteNotFound("Route wasn't found.");
     }
-    return Route.toModel(route);
+    return Route.toModel(route.get());
   }
 
   public Integer deleteRoute(Integer id)

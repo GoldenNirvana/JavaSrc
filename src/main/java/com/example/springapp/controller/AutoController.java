@@ -2,6 +2,7 @@ package com.example.springapp.controller;
 
 import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
+import com.example.springapp.repository.AutoRepo;
 import com.example.springapp.service.AutoPersonnelService;
 import com.example.springapp.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,34 @@ public class AutoController
   public ResponseEntity getAllAutos()
   {
     return ResponseEntity.ok(autoService.getAllAutos());
+  }
+
+  //
+
+  @PutMapping("/setNewColor")
+  public ResponseEntity updateColor(@RequestParam Integer id, @RequestParam String newColor)
+  {
+    try
+    {
+      return ResponseEntity.ok(autoService.newColor(id, newColor));
+    }
+    catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
+  @PutMapping("/setNewNum")
+  public ResponseEntity updateNum(@RequestParam Integer id, @RequestParam String newNum)
+  {
+    try
+    {
+      return ResponseEntity.ok(autoService.newNum(id, newNum));
+    }
+    catch (Exception e)
+    {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 
   // Delete
