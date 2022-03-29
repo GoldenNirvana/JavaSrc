@@ -3,6 +3,7 @@ package com.example.springapp.service;
 import com.example.springapp.entity.RouteEntity;
 import com.example.springapp.exception.RouteAlreadyExist;
 import com.example.springapp.exception.RouteNotFound;
+import com.example.springapp.exception.TooManyCharacters;
 import com.example.springapp.model.Route;
 import com.example.springapp.repository.RouteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,13 @@ public class RouteService
   @Autowired
   private RouteRepo routeRepo;
 
-  public RouteEntity addNewRoute(RouteEntity route) throws RouteAlreadyExist
+  public RouteEntity addNewRoute(RouteEntity route) throws RouteAlreadyExist, TooManyCharacters
   {
+    if (route.getName().length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
+
     if (routeRepo.findByName(route.getName()) != null)
     {
       throw new RouteAlreadyExist("Маршрут с таким именем уже существует");

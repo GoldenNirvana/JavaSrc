@@ -2,10 +2,7 @@ package com.example.springapp.service;
 
 import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
-import com.example.springapp.exception.CarAlreadyExist;
-import com.example.springapp.exception.CarNotFound;
-import com.example.springapp.exception.DriverIsBusy;
-import com.example.springapp.exception.PersonnelNotFound;
+import com.example.springapp.exception.*;
 import com.example.springapp.repository.AutoPersonnelRepo;
 import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +21,14 @@ public class AutoService
   @Autowired
   private AutoPersonnelRepo autoPersonnelRepo;
 
-  public AutoEntity addNewAuto(String num, String color, String mark, Integer personnel_id) throws CarAlreadyExist, DriverIsBusy, PersonnelNotFound
+  public AutoEntity addNewAuto(String num, String color, String mark, Integer personnel_id) throws CarAlreadyExist, DriverIsBusy, PersonnelNotFound, TooManyCharacters
   {
-    Optional<AutoPersonnelEntity> autoPersonnel = autoPersonnelRepo.findById(personnel_id);
+    if (num.length() > 20 || color.length() > 20 || mark.length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
 
+    Optional<AutoPersonnelEntity> autoPersonnel = autoPersonnelRepo.findById(personnel_id);
     Optional<AutoEntity> auto = autoRepo.findByNum(num);
 
     if (auto.isPresent())
@@ -66,8 +67,13 @@ public class AutoService
     return (List<AutoEntity>) autoRepo.findAll();
   }
 
-  public AutoEntity newColor(Integer id, String newColor) throws CarNotFound
+  public AutoEntity newColor(Integer id, String newColor) throws CarNotFound, TooManyCharacters
   {
+    if (newColor.length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
+
     Optional<AutoEntity> auto = autoRepo.findById(id);
     if (auto.isEmpty())
     {
@@ -77,8 +83,13 @@ public class AutoService
     return autoRepo.save(auto.get());
   }
 
-  public AutoEntity newNum(Integer id, String newNum) throws CarNotFound, CarAlreadyExist
+  public AutoEntity newNum(Integer id, String newNum) throws CarNotFound, CarAlreadyExist, TooManyCharacters
   {
+    if (newNum.length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
+
     Optional<AutoEntity> auto = autoRepo.findById(id);
     if (auto.isEmpty())
     {

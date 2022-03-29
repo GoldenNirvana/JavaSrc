@@ -3,6 +3,7 @@ package com.example.springapp.service;
 import com.example.springapp.entity.AutoPersonnelEntity;
 import com.example.springapp.exception.DriverAlreadyExist;
 import com.example.springapp.exception.DriverWasntFound;
+import com.example.springapp.exception.TooManyCharacters;
 import com.example.springapp.repository.AutoPersonnelRepo;
 import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,19 @@ public class AutoPersonnelService
   @Autowired
   private AutoRepo autoRepo;
 
-  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity personnel) throws DriverAlreadyExist
+  public AutoPersonnelEntity addNewAutoPersonnel(AutoPersonnelEntity personnel) throws DriverAlreadyExist, TooManyCharacters
   {
     Optional<AutoPersonnelEntity> person = autoPersonnelRepo.findByFirstNameAndLastNameAndPatherName(personnel.getFirstName(), personnel.getLastName(), personnel.getPatherName());
     if (person.isPresent())
     {
       throw new DriverAlreadyExist("Водитель уже существует!");
     }
+
+    if (personnel.getPatherName().length() > 20 || personnel.getLastName().length() > 20 || personnel.getFirstName().length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
+
     return autoPersonnelRepo.save(personnel);
   }
 
@@ -40,8 +47,13 @@ public class AutoPersonnelService
     return false;
   }
 
-  public AutoPersonnelEntity newName(Integer id, String newName) throws DriverWasntFound, DriverAlreadyExist
+  public AutoPersonnelEntity newName(Integer id, String newName) throws DriverWasntFound, DriverAlreadyExist, TooManyCharacters
   {
+    if (newName.length() > 20)
+    {
+      throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
+    }
+
     Optional<AutoPersonnelEntity> personnel = autoPersonnelRepo.findById(id);
 
     if (personnel.isEmpty())
