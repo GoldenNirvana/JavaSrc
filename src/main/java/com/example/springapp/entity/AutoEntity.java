@@ -11,13 +11,13 @@ public class AutoEntity
   @Column(name = "id")
   private Integer id;
 
-  @Column(name = "num", nullable = false, length = 50)
+  @Column(name = "num", nullable = false, length = 20)
   private String num;
 
-  @Column(name = "color", nullable = false, length = 50)
+  @Column(name = "color", nullable = false, length = 20)
   private String color;
 
-  @Column(name = "mark", nullable = false, length = 50)
+  @Column(name = "mark", nullable = false, length = 20)
   private String mark;
 
   @ManyToOne(optional = false, cascade = CascadeType.MERGE)

@@ -11,7 +11,7 @@ public class RouteEntity {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
 
     public RouteEntity() {
