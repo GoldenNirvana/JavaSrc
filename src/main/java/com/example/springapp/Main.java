@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+// пробую git с jwt
+
 public class Main
 {
     public static Connection getNewConnection(String dbURL, String username, String password) throws SQLException
