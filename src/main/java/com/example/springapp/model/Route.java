@@ -2,24 +2,29 @@ package com.example.springapp.model;
 
 import com.example.springapp.entity.RouteEntity;
 
-public class Route {
+public class Route
+{
 
-    private String name;
+  private String name;
 
-    public static Route toModel(RouteEntity entity) {
-        Route model = new Route();
-        model.setName(entity.getName());
-        return model;
-    }
+  public static Route toModel(RouteEntity entity)
+  {
+    Route model = new Route();
+    model.setName(entity.getName());
+    return model;
+  }
 
-    public Route() {
-    }
+  public Route()
+  {
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName()
+  {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name)
+  {
+    this.name = name;
+  }
 }
