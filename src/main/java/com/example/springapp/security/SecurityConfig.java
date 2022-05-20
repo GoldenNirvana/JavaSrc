@@ -1,6 +1,5 @@
 package com.example.springapp.security;
 
-
 import com.example.springapp.filter.CustomAuthenticationFilter;
 import com.example.springapp.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
@@ -41,19 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     http.authorizeRequests()
-      .antMatchers(GET, "/booktypes/**", "/books/**", "/entries/**")
+      .antMatchers(GET, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
     http.authorizeRequests()
-      .antMatchers(GET, "/clients/**")
-      .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
-    http.authorizeRequests()
-      .antMatchers(POST, "/booktypes/**", "/entries/**", "/clients/**", "/books/**")
+      .antMatchers(POST, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAuthority("ROLE_ADMIN");
     http.authorizeRequests()
-      .antMatchers(PUT, "/booktypes/**", "/entries/**", "/clients/**", "/books/**")
+      .antMatchers(PUT, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAuthority("ROLE_ADMIN");
     http.authorizeRequests()
-      .antMatchers(DELETE, "/booktypes/**", "/entries/**", "/clients/**", "/books/**")
+      .antMatchers(DELETE, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAuthority("ROLE_ADMIN");
 
     http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER");
