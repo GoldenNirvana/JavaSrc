@@ -53,7 +53,7 @@ public class AutoController
   }
 
 
-  @GetMapping("/getAllAutos")
+  @GetMapping("/getAll")
   public ResponseEntity getAllAutos()
   {
     return ResponseEntity.ok(autoService.getAllAutos());

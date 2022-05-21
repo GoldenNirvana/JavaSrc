@@ -1,5 +1,6 @@
 package com.example.springapp.service;
 
+import com.example.springapp.entity.AutoEntity;
 import com.example.springapp.entity.AutoPersonnelEntity;
 import com.example.springapp.exception.DriverAlreadyExist;
 import com.example.springapp.exception.DriverWasntFound;
@@ -9,6 +10,7 @@ import com.example.springapp.repository.AutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,24 +55,22 @@ public class AutoPersonnelService
     {
       throw new TooManyCharacters("Длина строки не должна превышать 20 символов");
     }
-
     Optional<AutoPersonnelEntity> personnel = autoPersonnelRepo.findById(id);
-
     if (personnel.isEmpty())
     {
       throw new DriverWasntFound("Такого водителя нет в базе");
     }
-
-
     Optional<AutoPersonnelEntity> personnelEntity = autoPersonnelRepo.findByFirstNameAndLastNameAndPatherName(newName, personnel.get().getLastName(), personnel.get().getPatherName());
-
     if (personnelEntity.isPresent())
     {
       throw new DriverAlreadyExist("Водитель с такими ФИО уже записан");
-
-
     }
     personnel.get().setFirstName(newName);
     return autoPersonnelRepo.save(personnel.get());
+  }
+
+  public List<AutoPersonnelEntity> getAllPersonnels()
+  {
+    return (List<AutoPersonnelEntity>) autoPersonnelRepo.findAll();
   }
 }

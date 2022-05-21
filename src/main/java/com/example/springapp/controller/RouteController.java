@@ -47,7 +47,7 @@ public class RouteController
     }
   }
 
-  @GetMapping("/getAllRoutes")
+  @GetMapping("/getAll")
   public ResponseEntity getAllRoutes()
   {
     return ResponseEntity.ok(routeService.getAllRoutes());

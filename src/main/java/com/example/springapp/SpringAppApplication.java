@@ -34,11 +34,11 @@ public class SpringAppApplication
       userService.saveRole(new Role(null, "ROLE_USER"));
       userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-      userService.saveUser(new User(null, "Ilya Svaikin", "nirvana", "root", new ArrayList<>()));
-      userService.saveUser(new User(null, "Artem Pyzikov", "artem", "user", new ArrayList<>()));
+      userService.saveUser(new User(null, "Ilya Svaikin", "a", "a", new ArrayList<>()));
+      userService.saveUser(new User(null, "Artem Pyzikov", "d", "d", new ArrayList<>()));
 
-      userService.addRoleToUser("artem", "ROLE_USER");
-      userService.addRoleToUser("nirvana", "ROLE_ADMIN");
+      userService.addRoleToUser("d", "ROLE_USER");
+      userService.addRoleToUser("a", "ROLE_ADMIN");
     };
   }
 }

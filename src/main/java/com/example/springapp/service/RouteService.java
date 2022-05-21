@@ -35,7 +35,7 @@ public class RouteService
   public Route getOne(Integer id) throws RouteNotFound
   {
     Optional <RouteEntity> route = routeRepo.findById(id);
-    if (route.isPresent())
+    if (route.isEmpty())
     {
       throw new RouteNotFound("Route wasn't found.");
     }

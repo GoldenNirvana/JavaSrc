@@ -26,6 +26,11 @@ public class AutoPersonnelController
     }
   }
 
+  @GetMapping("/getAll")
+  public ResponseEntity getAllPersonnels()
+  {
+    return ResponseEntity.ok(autoPersonnelService.getAllPersonnels());
+  }
 
   @PutMapping("/setNewName")
   public ResponseEntity updateName(Integer id, String newName)
@@ -39,9 +44,6 @@ public class AutoPersonnelController
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
-
-
-
 
   @DeleteMapping("/deleteById")
   public ResponseEntity deleteById(@RequestParam Integer id)
