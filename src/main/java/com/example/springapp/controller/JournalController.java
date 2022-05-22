@@ -21,8 +21,7 @@ import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/journals")
-public class JournalController
-{
+public class JournalController {
   @Autowired
   private AutoPersonnelService autoPersonnelService;
 
@@ -38,46 +37,37 @@ public class JournalController
   // Post
 
   @PostMapping("/addNewByParams")
-  public ResponseEntity addNewAutoByParams(@RequestParam String time_in, @RequestParam String time_out, @RequestParam Integer route_id, @RequestParam Integer auto_id) throws ParseException
-  {
-    try
-    {
+  public ResponseEntity addNewAutoByParams(@RequestParam String time_in, @RequestParam String time_out, @RequestParam Integer route_id, @RequestParam Integer auto_id) throws ParseException {
+    try {
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
       Date parsedDate_1 = dateFormat.parse(time_in);
       Date parsedDate_2 = dateFormat.parse(time_out);
       Timestamp timestamp_1 = new java.sql.Timestamp(parsedDate_1.getTime());
       Timestamp timestamp_2 = new java.sql.Timestamp(parsedDate_2.getTime());
       return ResponseEntity.ok(journalService.addNewJournal(timestamp_1, timestamp_2, route_id, auto_id));
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
 
   @PostMapping("/addNewByBody")
-  public ResponseEntity addNewAutoByBody(@RequestBody JournalEntity journal) throws ParseException, RouteAlreadyExist, RouteNotFound
-  {
+  public ResponseEntity addNewAutoByBody(@RequestBody JournalEntity journal) throws ParseException, RouteAlreadyExist, RouteNotFound {
     RouteEntity route = null;
     AutoPersonnelEntity autoPersonnel = null;
     AutoEntity auto = null;
-    try
-    {
+    try {
       route = routeService.addNewRoute(journal.getRouteId());
       autoPersonnel = autoPersonnelService.addNewAutoPersonnel(journal.getAutoId().getPersonnelId());
       auto = autoService.addNewAuto(journal.getAutoId().getNum(), journal.getAutoId().getColor(), journal.getAutoId().getMark(), journal.getAutoId().getPersonnelId().getId());
       return ResponseEntity.ok(journalService.addNewJournal(journal.getTimeIn(), journal.getTimeOut(), route.getId(), auto.getId()));
-    } catch (Exception e)
-    {
-      if (route != null)
-      {
+    } catch (Exception e) {
+      if (route != null) {
         routeService.deleteRoute(route.getId());
       }
-      if (auto != null)
-      {
+      if (auto != null) {
         autoService.deleteById(auto.getId());
       }
-      if (autoPersonnel != null)
-      {
+      if (autoPersonnel != null) {
         autoPersonnelService.deleteById(autoPersonnel.getId());
       }
       return ResponseEntity.badRequest().body(e.getMessage());
@@ -85,38 +75,28 @@ public class JournalController
   }
 
   @GetMapping("/getAll")
-  public ResponseEntity getAllJournals()
-  {
-    try
-    {
+  public ResponseEntity getAllJournals() {
+    try {
       return ResponseEntity.ok(journalService.getAllJournals());
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
 
   @GetMapping("/getById")
-  public ResponseEntity getByRoute(@RequestParam Integer routeId)
-  {
-    try
-    {
+  public ResponseEntity getByRoute(@RequestParam Integer routeId) {
+    try {
       return ResponseEntity.ok(journalService.getByRoute(routeId));
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
 
   @DeleteMapping("/deleteById")
-  public ResponseEntity deleteById(@RequestParam Integer id)
-  {
-    try
-    {
+  public ResponseEntity deleteById(@RequestParam Integer id) {
+    try {
       return ResponseEntity.ok(journalService.deleteById(id));
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }

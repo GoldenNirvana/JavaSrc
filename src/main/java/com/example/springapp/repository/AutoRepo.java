@@ -6,8 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface AutoRepo extends CrudRepository<AutoEntity, Integer>
-{
+public interface AutoRepo extends CrudRepository<AutoEntity, Integer> {
   Optional<AutoEntity> findByNum(String num);
 
   Optional<AutoEntity> findByPersonnelId(Optional<AutoPersonnelEntity> personnelId);

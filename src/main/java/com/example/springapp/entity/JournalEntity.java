@@ -5,8 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "journal")
-public class JournalEntity
-{
+public class JournalEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
@@ -26,65 +25,53 @@ public class JournalEntity
   @JoinColumn(name = "auto_id")
   private AutoEntity autoId;
 
-  public JournalEntity()
-  {
+  public JournalEntity() {
   }
 
-  public JournalEntity(Timestamp timeIn, Timestamp timeOut, AutoEntity autoId, RouteEntity routeId)
-  {
+  public JournalEntity(Timestamp timeIn, Timestamp timeOut, AutoEntity autoId, RouteEntity routeId) {
     this.autoId = autoId;
     this.routeId = routeId;
     this.timeOut = timeOut;
     this.timeIn = timeIn;
   }
 
-  public Integer getId()
-  {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id)
-  {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public Timestamp getTimeOut()
-  {
+  public Timestamp getTimeOut() {
     return timeOut;
   }
 
-  public void setTimeOut(Timestamp time_out)
-  {
+  public void setTimeOut(Timestamp time_out) {
     this.timeOut = time_out;
   }
 
-  public Timestamp getTimeIn()
-  {
+  public Timestamp getTimeIn() {
     return timeIn;
   }
 
-  public void setTimeIn(Timestamp time_in)
-  {
+  public void setTimeIn(Timestamp time_in) {
     this.timeIn = time_in;
   }
 
-  public RouteEntity getRouteId()
-  {
+  public RouteEntity getRouteId() {
     return routeId;
   }
 
-  public void setRouteId(RouteEntity route_id)
-  {
+  public void setRouteId(RouteEntity route_id) {
     this.routeId = route_id;
   }
 
-  public AutoEntity getAutoId()
-  {
+  public AutoEntity getAutoId() {
     return autoId;
   }
 
-  public void setAutoId(AutoEntity auto_id)
-  {
+  public void setAutoId(AutoEntity auto_id) {
     this.autoId = auto_id;
   }
 }

@@ -11,8 +11,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-public interface JournalRepo extends CrudRepository<JournalEntity, Integer>
-{
+public interface JournalRepo extends CrudRepository<JournalEntity, Integer> {
   List<JournalEntity> findJournalEntityByAutoId(AutoEntity autoId);
+
   List<JournalEntity> findAllByRouteId(RouteEntity route);
 }

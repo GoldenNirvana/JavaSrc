@@ -36,51 +36,51 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class UserController
-{
+public class UserController {
   private final UserService userService;
 
   @GetMapping("/users")
-  public ResponseEntity<List<User>> getUsers()
-  {
+  public ResponseEntity<List<User>> getUsers() {
     return ResponseEntity.ok().body(userService.getUsers());
   }
 
   @GetMapping("/user/get")
-  public ResponseEntity<User> getUser(@RequestParam String username) throws Exception
-  {
+  public ResponseEntity<User> getUser(@RequestParam String username) throws Exception {
     return ResponseEntity.ok().body(userService.getUser(username));
   }
 
+  @PostMapping("/user/log")
+  public ResponseEntity logInToSystem() {
+    try {
+      return ResponseEntity.ok().body("Accept");
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
   @PostMapping("/user/save")
-  public ResponseEntity<User> saveUser(@RequestBody User user)
-  {
+  public ResponseEntity<User> saveUser(@RequestBody User user) {
     URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
     return ResponseEntity.created(uri).body(userService.saveUser(user));
   }
 
   @PostMapping("/role/save")
-  public ResponseEntity<Role> saveRole(@RequestBody Role role)
-  {
+  public ResponseEntity<Role> saveRole(@RequestBody Role role) {
     URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("api/role/save").toUriString());
     return ResponseEntity.created(uri).body(userService.saveRole(role));
   }
 
   @PostMapping("/role/addtouser")
-  public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form) throws Exception
-  {
+  public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form) throws Exception {
     userService.addRoleToUser(form.getUsername(), form.getRoleName());
     return ResponseEntity.ok().build();
   }
 
   @GetMapping("/token/refresh")
-  public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException
-  {
+  public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String authorizationHeader = request.getHeader(AUTHORIZATION);
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer "))
-    {
-      try
-      {
+    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+      try {
         String refreshToken = authorizationHeader.substring("Bearer ".length());
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
@@ -100,8 +100,7 @@ public class UserController
         tokens.put("refresh_token", refreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-      } catch (Exception exception)
-      {
+      } catch (Exception exception) {
         log.error("Error logging in: {}", exception.getMessage());
         response.setHeader("error", exception.getMessage());
         response.setStatus(FORBIDDEN.value());
@@ -110,16 +109,14 @@ public class UserController
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), error);
       }
-    } else
-    {
+    } else {
       throw new RuntimeException("Refresh token is missing");
     }
   }
 }
 
 @Data
-class RoleToUserForm
-{
+class RoleToUserForm {
   private String username;
   private String roleName;
 }

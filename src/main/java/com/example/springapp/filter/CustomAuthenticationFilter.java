@@ -25,18 +25,15 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
-public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter
-{
+public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
   private final AuthenticationManager authenticationManager;
 
-  public CustomAuthenticationFilter(AuthenticationManager authenticationManager)
-  {
+  public CustomAuthenticationFilter(AuthenticationManager authenticationManager) {
     this.authenticationManager = authenticationManager;
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException
-  {
+  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     log.info("Username is: {}", username);
@@ -46,8 +43,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException
-  {
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
     User user = (User) authentication.getPrincipal();
     Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
     String access_token = JWT.create()

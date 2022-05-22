@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigInteger;
 
-public interface RoleRepository extends JpaRepository<Role, BigInteger>
-{
+public interface RoleRepository extends JpaRepository<Role, BigInteger> {
   Role findByName(String name);
 }

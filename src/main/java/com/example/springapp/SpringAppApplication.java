@@ -13,22 +13,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.ArrayList;
 
 @SpringBootApplication
-public class SpringAppApplication
-{
-  public static void main(String[] args)
-  {
+public class SpringAppApplication {
+  public static void main(String[] args) {
     SpringApplication.run(SpringAppApplication.class, args);
   }
 
   @Bean
-  PasswordEncoder passwordEncoder()
-  {
+  PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
   @Bean
-  CommandLineRunner run(UserService userService)
-  {
+  CommandLineRunner run(UserService userService) {
     return args ->
     {
       userService.saveRole(new Role(null, "ROLE_USER"));

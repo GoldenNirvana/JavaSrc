@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface AutoPersonnelRepo extends CrudRepository<AutoPersonnelEntity, Integer>
-{
+public interface AutoPersonnelRepo extends CrudRepository<AutoPersonnelEntity, Integer> {
   Optional<AutoPersonnelEntity> findByFirstNameAndLastNameAndPatherName(String firstName, String lastName, String patherName);
 }

@@ -4,8 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "auto")
-public class AutoEntity
-{
+public class AutoEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id")
@@ -24,65 +23,53 @@ public class AutoEntity
   @JoinColumn(name = "personnel_id")
   private AutoPersonnelEntity personnelId;
 
-  public AutoEntity()
-  {
+  public AutoEntity() {
   }
 
-  public AutoEntity(String num, String color, String mark, AutoPersonnelEntity personnelId)
-  {
+  public AutoEntity(String num, String color, String mark, AutoPersonnelEntity personnelId) {
     this.num = num;
     this.color = color;
     this.mark = mark;
     this.personnelId = personnelId;
   }
 
-  public Integer getId()
-  {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Integer id)
-  {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public String getNum()
-  {
+  public String getNum() {
     return num;
   }
 
-  public void setNum(String num)
-  {
+  public void setNum(String num) {
     this.num = num;
   }
 
-  public String getColor()
-  {
+  public String getColor() {
     return color;
   }
 
-  public void setColor(String color)
-  {
+  public void setColor(String color) {
     this.color = color;
   }
 
-  public String getMark()
-  {
+  public String getMark() {
     return mark;
   }
 
-  public void setMark(String mark)
-  {
+  public void setMark(String mark) {
     this.mark = mark;
   }
 
-  public AutoPersonnelEntity getPersonnelId()
-  {
+  public AutoPersonnelEntity getPersonnelId() {
     return personnelId;
   }
 
-  public void setPersonnelId(AutoPersonnelEntity personnel_id)
-  {
+  public void setPersonnelId(AutoPersonnelEntity personnel_id) {
     this.personnelId = personnel_id;
   }
 }

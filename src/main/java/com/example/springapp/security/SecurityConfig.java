@@ -20,25 +20,21 @@ import static org.springframework.http.HttpMethod.*;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private final UserDetailsService userDetailsService;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception
-  {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
   }
 
   @Override
-  protected void configure(HttpSecurity http) throws Exception
-  {
+  protected void configure(HttpSecurity http) throws Exception {
     CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
     customAuthenticationFilter.setFilterProcessesUrl("/api/login");
     http.csrf().disable();
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     http.authorizeRequests()
       .antMatchers(GET, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
@@ -51,9 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     http.authorizeRequests()
       .antMatchers(DELETE, "/autos/**", "/personnels/**", "/routes/**", "/journals/**")
       .hasAuthority("ROLE_ADMIN");
-
-    http.authorizeRequests().antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER");
     http.authorizeRequests().antMatchers(POST, "/api/user/save/**").hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests().antMatchers(POST, "/api/user/log").hasAuthority("ROLE_ADMIN");
     http.authorizeRequests().antMatchers("/api/login/**", "/api/token/refresh/**").permitAll();
     http.authorizeRequests().anyRequest().authenticated();
     http.addFilter(customAuthenticationFilter);
@@ -62,8 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
   @Bean
   @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception
-  {
+  public AuthenticationManager authenticationManagerBean() throws Exception {
     return super.authenticationManagerBean();
   }
 }
