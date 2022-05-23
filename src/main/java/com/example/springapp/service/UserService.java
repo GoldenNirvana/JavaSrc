@@ -30,18 +30,15 @@ public class UserService implements UserDetailsService {
   private final PasswordEncoder passwordEncoder;
 
   public User saveUser(User user) {
-    log.info("Saving new user to the database");
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return userRepository.save(user);
   }
 
   public Role saveRole(Role role) {
-    log.info("Saving new role to the database");
     return roleRepository.save(role);
   }
 
   public void addRoleToUser(String username, String roleName) {
-    log.info("Adding role to user");
     Optional<User> user = userRepository.findUserByUsername(username);
     if (user.isEmpty()) {
       throw new UsernameNotFoundException("User not found!");
@@ -51,7 +48,6 @@ public class UserService implements UserDetailsService {
   }
 
   public User getUser(String username) {
-    log.info("Fetching user");
     Optional<User> user = userRepository.findUserByUsername(username);
     if (user.isEmpty()) {
       throw new UsernameNotFoundException("User not found!");
@@ -67,16 +63,11 @@ public class UserService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UserNotFoundException {
     Optional<User> user = userRepository.findUserByUsername(username);
     if (user.isEmpty()) {
-      log.info("User not found!");
       throw new UserNotFoundException("User not found!");
-    } else {
-      log.info("User was loaded!");
     }
     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
     user.get().getRoles().forEach(role ->
-    {
-      authorities.add(new SimpleGrantedAuthority(role.getName()));
-    });
+      authorities.add(new SimpleGrantedAuthority(role.getName())));
     return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
   }
 }
